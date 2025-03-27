@@ -13,6 +13,27 @@ Many open-source tools and Terraform providers have not been updated to support 
 - Workarounds and alternative installation methods
 - A centralized location to find necessary binaries
 
+## 🔗 Solution: Symlink for Terraform Plugins
+
+This solution creates a symbolic link (symlink) from the user's plugin directory if the required Terraform provider already exists there. This helps avoid redundant downloads and ensures compatibility with unsupported architectures.
+
+### Plugin Directories:
+- **Windows:** `%APPDATA%\terraform.d\plugins`
+- **Linux/macOS:** `~/.terraform.d/plugins`
+
+### Symlink Commands:
+**Linux/macOS:**
+```sh
+ln -s ~/.terraform.d/plugins/<provider-path> .terraform/providers/<provider-path>
+```
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType SymbolicLink -Path "<project-path>" -Target "<global-plugin-path>"
+```
+
+Using symlinks improves efficiency and resolves compatibility issues for `darwin_arm64` and other architectures.
+
+
 ## 📥 Installation & Usage
 To use a package from this repository, follow these steps:
 
